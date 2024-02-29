@@ -1,10 +1,7 @@
 package com.dip.springboot.controller;
 
 import com.dip.springboot.bean.Student;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,5 +43,15 @@ public class StudentController {
                                    @RequestParam String fname){
 
         return  new Student(id,fname,"Das");
+    }
+
+    //REST API WITH POST REQUEST
+@PostMapping("student/create")
+    public Student createStudent(@RequestBody Student student){
+        System.out.println(student.getId());
+        System.out.println("student = " + student.getFirstName());
+        System.out.println("student = " + student.getLastName());
+
+        return student;
     }
 }
