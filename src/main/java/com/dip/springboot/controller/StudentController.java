@@ -3,6 +3,7 @@ package com.dip.springboot.controller;
 import com.dip.springboot.bean.Student;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -35,5 +36,15 @@ public class StudentController {
     public  Student getStudent(@PathVariable("id")  int studentId){
 
     return  new Student(studentId,"Ramesh","Das");
+    }
+
+    // REST API with Request param
+    ////htttp:localhost:8080/getstudent/query?id=1&fname=ramesh
+
+    @GetMapping("getStudent/query")
+    public  Student getStudentById(@RequestParam  int id,
+                                   @RequestParam String fname){
+
+        return  new Student(id,fname,"Das");
     }
 }
