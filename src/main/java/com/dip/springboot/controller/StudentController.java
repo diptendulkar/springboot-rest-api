@@ -2,7 +2,9 @@ package com.dip.springboot.controller;
 
 import com.dip.springboot.bean.Student;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.service.annotation.DeleteExchange;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,9 +12,15 @@ import java.util.List;
 @RestController
 public class StudentController {
 @GetMapping("student")
-    public Student getStudent(){
+    public Student student(){
         Student student = new Student(1,"Ramesh","Das");
         return student;
+    }
+
+    @GetMapping("getStudent")
+    public ResponseEntity<Student> getStudent(){
+        Student student = new Student(1,"Ramesh","Das");
+        return new ResponseEntity<>(student, HttpStatus.OK);
     }
 
     @GetMapping("getStudentList")
@@ -55,5 +63,26 @@ public class StudentController {
         System.out.println("student = " + student.getLastName());
 
         return student;
+    }
+
+
+@PutMapping("student/{id}/update")
+@ResponseStatus(HttpStatus.OK)
+public Student updateStudent(@RequestBody Student student,@PathVariable("id") int studentid){
+    System.out.println(student.getId());
+    System.out.println("student = " + student.getFirstName());
+    System.out.println("student = " + student.getLastName());
+
+    return student;
+}
+
+    @DeleteMapping("student/{id}/delete")
+//    @ResponseStatus(HttpStatus.OK)
+    public String deleteStudent(@PathVariable("id") int studentid){
+
+        System.out.println("Delete student = " + studentid);
+
+
+        return "student Deleted sucessfully!!";
     }
 }
