@@ -1,6 +1,7 @@
 package com.dip.springboot.controller;
 
 import com.dip.springboot.bean.Student;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -47,6 +48,7 @@ public class StudentController {
 
     //REST API WITH POST REQUEST
 @PostMapping("student/create")
+@ResponseStatus(HttpStatus.CREATED)
     public Student createStudent(@RequestBody Student student){
         System.out.println(student.getId());
         System.out.println("student = " + student.getFirstName());
