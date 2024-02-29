@@ -20,11 +20,11 @@ public class StudentController {
     @GetMapping("getStudent")
     public ResponseEntity<Student> getStudent(){
         Student student = new Student(1,"Ramesh","Das");
-        return new ResponseEntity<>(student, HttpStatus.OK);
+        return  ResponseEntity.ok(student);
     }
 
     @GetMapping("getStudentList")
-    public List<Student> getStudentList(){
+    public ResponseEntity<List<Student>> getStudentList(){
 
     List<Student> studentList = new ArrayList<>();
         studentList.add(new Student(1,"Ramesh","Das"));
@@ -34,7 +34,7 @@ public class StudentController {
         studentList.add(new Student(4,"Rupesh","Bora"));
 
 
-    return  studentList;
+    return  ResponseEntity.ok(studentList);
     }
 
     // Rest API Path Variable
