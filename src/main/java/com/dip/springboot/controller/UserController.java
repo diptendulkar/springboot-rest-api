@@ -1,5 +1,6 @@
 package com.dip.springboot.controller;
 
+import com.dip.springboot.dto.UserDto;
 import com.dip.springboot.entity.User;
 import com.dip.springboot.service.UserService;
 import lombok.AllArgsConstructor;
@@ -19,8 +20,8 @@ public class UserController {
 
 
     @PostMapping("create")
-    public ResponseEntity<User> createUser(@RequestBody User user) {
-        User saveUser = userService.createUser(user);
+    public ResponseEntity<UserDto> createUser(@RequestBody UserDto user) {
+        UserDto saveUser = userService.createUser(user);
         return new ResponseEntity<>(saveUser, HttpStatus.CREATED);
     }
 
