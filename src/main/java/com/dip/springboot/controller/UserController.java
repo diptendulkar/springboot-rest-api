@@ -26,22 +26,22 @@ public class UserController {
     }
 
     @GetMapping("getAllUsers")
-    public ResponseEntity<List<User>> getAllUsers() {
-        List<User> userList = userService.getAllUser();
+    public ResponseEntity<List<UserDto>> getAllUsers() {
+        List<UserDto> userList = userService.getAllUser();
         return new ResponseEntity<>(userList, HttpStatus.OK);
     }
 
     @GetMapping("getUser/{id}")
-    public ResponseEntity<User> getUser(@PathVariable Long id) {
-        User user = userService.getuser(id);
+    public ResponseEntity<UserDto> getUser(@PathVariable Long id) {
+        UserDto user = userService.getuser(id);
         if (user != null)
             return new ResponseEntity<>(user, HttpStatus.OK);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PostMapping("update")
-    public ResponseEntity<User> updateUser(@RequestBody User user) {
-        User updateUser = userService.updateUser(user);
+    public ResponseEntity<UserDto> updateUser(@RequestBody UserDto user) {
+        UserDto updateUser = userService.updateUser(user);
 
         return new ResponseEntity<>(updateUser, HttpStatus.OK);
 
@@ -50,7 +50,7 @@ public class UserController {
 
     @DeleteMapping("delete/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable Long id) {
-        User user = userService.getuser(id);
+        UserDto user = userService.getuser(id);
         if (user != null) {
             userService.deleteUser(id);
             return new ResponseEntity<>("User Deleted Scussfully", HttpStatus.OK);
