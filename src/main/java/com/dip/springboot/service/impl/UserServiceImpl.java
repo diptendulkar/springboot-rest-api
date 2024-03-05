@@ -2,6 +2,7 @@ package com.dip.springboot.service.impl;
 
 import com.dip.springboot.dto.UserDto;
 import com.dip.springboot.entity.User;
+import com.dip.springboot.exception.ResourceNotFoundException;
 import com.dip.springboot.mapper.AutoUserMapper;
 import com.dip.springboot.mapper.UserMapper;
 import com.dip.springboot.repository.Userrepository;
@@ -57,19 +58,21 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto getuser(Long id) {
-        Optional<User> optionalUser = userrepository.findById(id);
-        if (optionalUser.isPresent()) {
+         User user = userrepository.findById(id).orElseThrow(
+                 ()-> new ResourceNotFoundException("User","id",id.toString())
+         );
+
 //            return UserMapper.mapToUserDto(optionalUser.get());
 //            return modelMapper.map(optionalUser.get(), UserDto.class);
-            return AutoUserMapper.MAPPER.mapToUserDto(optionalUser.get());
-        }
+            return AutoUserMapper.MAPPER.mapToUserDto(user);
 
-        return null;
     }
 
     @Override
     public UserDto updateUser(UserDto user) {
-        User u = userrepository.findById(user.getId()).get();
+        User u = userrepository.findById(user.getId()).orElseThrow(
+                ()-> new ResourceNotFoundException("Update User", "userId", user.getId().toString())
+        );
 
         u.setEmail(user.getEmail());
         u.setFirstName(user.getFirstName());
@@ -83,6 +86,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUser(Long id) {
+        User u = userrepository.findById(id).orElseThrow(
+                ()-> new ResourceNotFoundException("Delete User", "userId", id.toString())
+        );
         userrepository.deleteById(id);
     }
 }
