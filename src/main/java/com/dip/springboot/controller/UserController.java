@@ -65,6 +65,13 @@ public class UserController {
 
     }
 
+    @DeleteMapping("deleteIds")
+    public  ResponseEntity<?> deleteListOfIds(@RequestBody List<Long> ids){
+
+        userService.deleteByIdIn(ids);
+        return new ResponseEntity<>("All Deleted Successfully", HttpStatus.OK);
+    }
+
 /*    @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ErrorDetails> handleResourceNotFoundException(ResourceNotFoundException exception, WebRequest webRequest) {
         ErrorDetails errorDetails = new ErrorDetails(

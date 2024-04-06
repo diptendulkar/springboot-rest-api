@@ -8,6 +8,7 @@ import com.dip.springboot.mapper.AutoUserMapper;
 import com.dip.springboot.mapper.UserMapper;
 import com.dip.springboot.repository.Userrepository;
 import com.dip.springboot.service.UserService;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -96,5 +97,12 @@ public class UserServiceImpl implements UserService {
                 ()-> new ResourceNotFoundException("Delete User", "userId", id.toString())
         );
         userrepository.deleteById(id);
+    }
+
+    @Transactional
+    @Override
+    public void deleteByIdIn(List<Long> ids) {
+
+        userrepository.deleteByIdIn(ids);
     }
 }
