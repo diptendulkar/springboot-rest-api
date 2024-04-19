@@ -7,6 +7,7 @@ import com.dip.springboot.exception.ResourceNotFoundException;
 import com.dip.springboot.service.UserService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,7 @@ import org.springframework.web.context.request.WebRequest;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @AllArgsConstructor
@@ -37,7 +39,14 @@ public class UserController {
     }
 
     @GetMapping("getUser/{id}")
-    public ResponseEntity<UserDto> getUser(@PathVariable Long id) {
+    public ResponseEntity<UserDto> getUser(@RequestHeader HttpHeaders headers, @PathVariable Long id) {
+
+       String headerStr = headers.entrySet().stream()
+                .map(entry -> entry.getKey() + ": " + entry.getValue())
+                .collect(Collectors.joining(", ", "All Headers: ", ""));
+        System.out.println(headerStr);
+
+
         UserDto user = userService.getuser(id);
         userService.deleteUser(id);
         if (user != null)
