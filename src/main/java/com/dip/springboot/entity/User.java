@@ -1,11 +1,13 @@
 package com.dip.springboot.entity;
 
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@JacksonXmlRootElement(localName = "User")
 @Getter
 @Setter
 @NoArgsConstructor
